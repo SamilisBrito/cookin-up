@@ -24,7 +24,7 @@ export default {
         <!-- <li v-for="ingrediente in ingredientes" v-bind:key="ingrediente" class="ingrediente"> -->
         <li v-for="ingrediente in ingredientes" :key="ingrediente">
           <!-- :key="ingrediente" é a mesma coisa que v-bind:key="ingrediente" -->
-          <Tag :texto="ingrediente" />
+          <Tag :texto="ingrediente" ativa />
         </li>
       </ul>
       <p v-else class="paragrafo lista-vazia">
