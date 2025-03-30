@@ -6,7 +6,7 @@ export default {
   },
   props: {
     ingredientes: {
-      type: Array,
+      type: Array as () => string[],
       required: true
     }
   },
