@@ -1,14 +1,26 @@
 <script lang="ts">
 import SelecionarIngredientes from '@/components/SelecionarIngredientes.vue';
 import SuaLista from '@/components/SuaLista.vue';
+import BotaoBusca from '@/components/BotaoBusca.vue';
+import Footer from '@/components/Footer.vue';
 export default {
   components: {
     SelecionarIngredientes,
-    SuaLista
+    SuaLista,
+    BotaoBusca,
+    Footer
   },
   data() {
     return {
-      ingredientes: ['bolacha', 'leite', 'alho']
+      ingredientes: [] as string[]
+    }
+  },
+  methods: {
+    adicionarIngrediente(ingrediente: string) {
+      this.ingredientes.push(ingrediente);
+    },
+    removerIngrediente(ingrediente: string) {
+      this.ingredientes = this.ingredientes.filter(i => i !== ingrediente);
     }
   }
 }
@@ -17,8 +29,10 @@ export default {
 <template>
   <main class="conteudo-principal">
     <SuaLista :ingredientes="ingredientes" />
-    <SelecionarIngredientes />
+    <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente" @remover-ingrediente="removerIngrediente" />
+    <BotaoBusca />
   </main>
+  <Footer/>
 </template>
 
 <style scoped>
