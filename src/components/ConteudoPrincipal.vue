@@ -3,16 +3,22 @@ import SelecionarIngredientes from '@/components/SelecionarIngredientes.vue';
 import SuaLista from '@/components/SuaLista.vue';
 import BotaoBusca from '@/components/BotaoBusca.vue';
 import Footer from '@/components/Footer.vue';
+import MostrarReceitas from './MostrarReceitas.vue';
+
+export type Pagina = 'SelecionarIngredientes' | 'MostrarReceitas'
+
 export default {
   components: {
     SelecionarIngredientes,
     SuaLista,
     BotaoBusca,
-    Footer
+    Footer,
+    MostrarReceitas
   },
   data() {
     return {
-      ingredientes: [] as string[]
+      ingredientes: [] as string[],
+      conteudo: 'SelecionarIngredientes' as Pagina,
     }
   },
   methods: {
@@ -21,6 +27,9 @@ export default {
     },
     removerIngrediente(ingrediente: string) {
       this.ingredientes = this.ingredientes.filter(i => i !== ingrediente);
+    },
+    redirecionar(pagina: Pagina) {
+      this.conteudo = pagina;
     }
   }
 }
@@ -29,10 +38,12 @@ export default {
 <template>
   <main class="conteudo-principal">
     <SuaLista :ingredientes="ingredientes" />
-    <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente" @remover-ingrediente="removerIngrediente" />
-    <BotaoBusca />
+    <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'" @adicionar-ingrediente="adicionarIngrediente"
+      @remover-ingrediente="removerIngrediente" />
+    <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'" />
+    <BotaoBusca v-if="conteudo === 'SelecionarIngredientes'" :redirecionar="redirecionar" :text="' Buscar receitas!'" />
   </main>
-  <Footer/>
+  <Footer />
 </template>
 
 <style scoped>
