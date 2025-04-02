@@ -8,6 +8,10 @@ export default {
       type: Function as PropType<(pagina: Pagina) => void>,
       required: false
     },
+    conteudo: {
+      type: Object as PropType<Pagina>,
+      required: true
+    },
     text: {
       type: String,
       required: true
@@ -16,7 +20,7 @@ export default {
   methods: {
     handleClick() {
       if (this.redirecionar)
-        this.redirecionar('MostrarReceitas');
+        this.redirecionar(this.conteudo);
     }
   }
 }

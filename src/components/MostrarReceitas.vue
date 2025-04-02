@@ -4,12 +4,17 @@ import CardReceitas from '@/components/CardReceitas.vue';
 import type { IReceitas } from '@/interfaces/IReceitas';
 import type { Pagina } from './ConteudoPrincipal.vue';
 import { obterReceitas } from '@/http';
+import type { PropType } from 'vue';
 
 export default {
   props: {
     ingredientes: {
       type: Array as () => string[],
-      required: true
+      required: true,
+    },
+    redirecionar: {
+      type: Function as PropType<(pagina: Pagina) => void>,
+      required: false,
     }
   },
   components: {
@@ -43,7 +48,7 @@ export default {
         :imagem="`imagens/receitas/${receita.imagem}`" :alt="receita.nome" />
       <img v-else="receitas.length > 0" src="/src/assets/imagens/sem-receitas.png" alt="">
     </div>
-    <BotaoBusca text="Editar lista" />
+    <BotaoBusca text="Editar lista" :redirecionar="redirecionar" conteudo="SelecionarIngredientes" />
   </main>
 </template>
 
