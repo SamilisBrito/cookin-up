@@ -39,7 +39,7 @@ export default {
     </p>
     <p v-else="receitas.length < 0">Ops, não encontramos resultados para sua combinação. Vamos tentar de novo?</p>
     <div class="receitas">
-      <CardReceitas v-if="receitas.length > 0" v-for="receita in receitas" :titulo="receita.nome"
+      <CardReceitas :key="receita.nome" v-if="receitas.length > 0" v-for="receita in receitas" :titulo="receita.nome"
         :imagem="`imagens/receitas/${receita.imagem}`" :alt="receita.nome" />
       <img v-else="receitas.length > 0" src="/src/assets/imagens/sem-receitas.png" alt="">
     </div>
