@@ -6,9 +6,15 @@ import type { Pagina } from './ConteudoPrincipal.vue';
 import { obterReceitas } from '@/http';
 
 export default {
+  props: {
+    ingredientes: {
+      type: Array as () => string[],
+      required: true
+    }
+  },
   components: {
     BotaoBusca,
-    CardReceitas
+    CardReceitas,
   },
   data() {
     return {
@@ -16,7 +22,11 @@ export default {
     }
   },
   async created() {
-    this.receitas = await obterReceitas();
+    const receitas = await obterReceitas();
+
+    const receitasCorrespondentes = receitas.filter(receita => this.ingredientes.every(ing => receita.ingredientes.includes(ing)));
+
+    this.receitas = receitasCorrespondentes;
   },
 }
 </script>
@@ -28,10 +38,10 @@ export default {
     <p v-if="receitas.length > 0">Veja as opções de receitas que encontramos com os ingredientes que você tem por aí!
     </p>
     <p v-else="receitas.length < 0">Ops, não encontramos resultados para sua combinação. Vamos tentar de novo?</p>
-    <div class="receitas" >
-      <CardReceitas v-if="receitas.length > 0" v-for="receita in receitas" :titulo="receita.nome" :imagem="`imagens/receitas/${receita.imagem}`"
-        :alt="receita.nome" />
-        <img v-else="receitas.length > 0" src="/src/assets/imagens/sem-receitas.png" alt="">
+    <div class="receitas">
+      <CardReceitas v-if="receitas.length > 0" v-for="receita in receitas" :titulo="receita.nome"
+        :imagem="`imagens/receitas/${receita.imagem}`" :alt="receita.nome" />
+      <img v-else="receitas.length > 0" src="/src/assets/imagens/sem-receitas.png" alt="">
     </div>
     <BotaoBusca text="Editar lista" />
   </main>

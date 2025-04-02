@@ -40,7 +40,7 @@ export default {
     <SuaLista :ingredientes="ingredientes" />
     <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'" @adicionar-ingrediente="adicionarIngrediente"
       @remover-ingrediente="removerIngrediente" />
-    <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'" />
+    <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'" :ingredientes="ingredientes" />
     <BotaoBusca v-if="conteudo === 'SelecionarIngredientes'" :redirecionar="redirecionar" :text="' Buscar receitas!'" />
   </main>
   <Footer />
