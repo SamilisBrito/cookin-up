@@ -1,9 +1,9 @@
 <script lang="ts">
 import BotaoBusca from '@/components/BotaoBusca.vue';
 import CardReceitas from '@/components/CardReceitas.vue';
-import { obterReceitas } from '@/http';
 import type { IReceitas } from '@/interfaces/IReceitas';
 import type { Pagina } from './ConteudoPrincipal.vue';
+import { obterReceitas } from '@/http';
 
 export default {
   components: {
@@ -13,17 +13,11 @@ export default {
   data() {
     return {
       receitas: [] as IReceitas[],
-      conteudo: 'SelecionarIngredientes' as Pagina,
     }
   },
   async created() {
     this.receitas = await obterReceitas();
   },
-  methods:{
-    redirecionar(pagina: Pagina) {
-      this.conteudo = pagina;
-    }
-  }
 }
 </script>
 
@@ -31,9 +25,13 @@ export default {
   <main class="mostrar-receitas">
     <h1 class="cabecalho titulo-receitas">Receitas</h1>
     <p class="subtitulo-receitas">Resultados encontrados: <span>{{ receitas.length }}</span></p>
-    <p>Veja as opções de receitas que encontramos com os ingredientes que você tem por aí!</p>
-    <div class="receitas">
-      <CardReceitas v-for="receita in receitas" :titulo="receita.nome" :imagem="`imagens/receitas/${receita.imagem}`" :alt="receita.nome" />
+    <p v-if="receitas.length > 0">Veja as opções de receitas que encontramos com os ingredientes que você tem por aí!
+    </p>
+    <p v-else="receitas.length < 0">Ops, não encontramos resultados para sua combinação. Vamos tentar de novo?</p>
+    <div class="receitas" >
+      <CardReceitas v-if="receitas.length > 0" v-for="receita in receitas" :titulo="receita.nome" :imagem="`imagens/receitas/${receita.imagem}`"
+        :alt="receita.nome" />
+        <img v-else="receitas.length > 0" src="/src/assets/imagens/sem-receitas.png" alt="">
     </div>
     <BotaoBusca text="Editar lista" />
   </main>
