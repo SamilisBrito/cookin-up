@@ -4,6 +4,7 @@ import type ICategoria from '@/interfaces/ICategoria';
 import CardCategoria from './CardCategoria.vue';
 
 export default {
+  name: 'SelecionarIngredientes',
   components: {
     CardCategoria
   },
