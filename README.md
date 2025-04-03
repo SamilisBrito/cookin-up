@@ -1,6 +1,6 @@
 # Cookin'UP
 
-Bem-vindo ao [**Cookin'UP**](cookin-fpzu0u5x1-samilisbritos-projects.vercel.app)! Este é um projeto web desenvolvido com **Vue 3** e **Vite**, criado para ajudar as pessoas a explorarem novas receitas e aproveitarem ao máximo os ingredientes que têm em casa.
+Bem-vindo ao [**Cookin'UP**](https://cookin-up-delta.vercel.app/)! Este é um projeto web desenvolvido com **Vue 3** e **Vite**, criado para ajudar as pessoas a explorarem novas receitas e aproveitarem ao máximo os ingredientes que têm em casa.
 
 ## Tecnologias Utilizadas
 - [Vue 3](https://vuejs.org/)
